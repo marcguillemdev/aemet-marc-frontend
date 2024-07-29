@@ -1,0 +1,111 @@
+{
+  "name": "aemet-marc-frontend",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "22.0.0"
+    },
+    "ghcr.io/devcontainers-contrib/features/angular-cli:2": {
+      "version": "18"
+    }
+  },
+  "updateRemoteUserUID": true,
+  "containerEnv": {
+    "TZ": "Europe/Madrid"
+  },
+  "mounts": [
+    "type=volume,source=vscode-server-extensions-cache,target=/home/user/.vscode-server/extensionsCache",
+    "type=volume,source=nvm-cache,target=/opt/nvm/.cache",
+    "type=volume,source=node-cache,target=/home/user/.npm/_cacache",
+    "source=${localWorkspaceFolder}/.devcontainer/config/.npmrc,target=/home/vscode/.npmrc,type=bind,consistency=cached"
+  ],
+  "runArgs": [
+    "--name=aemet-marc-frontend.local.computer",
+    "--network=aemet-marc-network"
+  ],
+  "initializeCommand": [
+    "/bin/bash",
+    "-i",
+    "-c",
+    "docker network inspect aemet-marc-network >/dev/null 2>&1 || docker network create --driver bridge aemet-marc-network"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "xyz.local-history",
+        "Angular.ng-template",
+        "dbaeumer.vscode-eslint",
+        "SonarSource.sonarlint-vscode",
+        "redhat.vscode-yaml",
+        "stylelint.vscode-stylelint",
+        "mrmlnc.vscode-scss",
+        "sibiraj-s.vscode-scss-formatter",
+        "mhutchie.git-graph"
+      ],
+      "settings": {
+        "files.watcherExclude": {
+          "**/.git/objects/**": true,
+          "**/.git/subtree-cache/**": true,
+          "**/node_modules/**": true,
+          "**/.hg/store/**": true,
+          "**/tmp/**": true,
+          "**/bower_components/**": true,
+          "**/dist/**": true,
+          "**/coverage/**": true
+        },
+        "files.exclude": {
+          "**/.git": true,
+          "**/.svn": true,
+          "**/.hg": true,
+          "**/CVS": true,
+          "**/.DS_Store": true,
+          "**/tmp/**": true,
+          "**/.gradle": true,
+          "**/.idea": true,
+          "**/.mvn": true,
+          "**/.classpath": true,
+          "**/.project": true,
+          "**/.settings": true,
+          "**/.factorypath": true
+        },
+        "search.exclude": {
+          "**/node_modules": true,
+          "**/bower_components": true,
+          "**/*.code-search": true,
+          "**/target/**": true,
+          "**/dist/**": true,
+          "**/coverage/**": true
+        },
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "/bin/bash",
+            "args": [
+              "-i"
+            ]
+          }
+        },
+        "local-history.path": "/tmp",
+        "editor.renderControlCharacters": true,
+        "editor.detectIndentation": false,
+        "editor.tabSize": 2,
+        "editor.formatOnPaste": true,
+        "editor.formatOnSave": true,
+        "scss.validate": false,
+        "less.validate": false,
+        "css.validate": false,
+        "stylelint.validate": [
+          "css",
+          "scss",
+          "less"
+        ],
+        "editor.codeActionsOnSave": {
+          "source.organizeImports": "explicit"
+        },
+        "editor.formatOnType": true,
+        "npm.enableScriptExplorer": true,
+        "workbench.editor.enablePreview": false
+      }
+    }
+  }
+}

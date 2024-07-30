@@ -1,0 +1,25 @@
+<section class="mat-elevation-z11">
+  <div class="header">
+    <form [formGroup]="formGroup" (ngSubmit)="sendForm()">
+      <mat-form-field class="municipio" appearance="outline" floatLabel="always">
+        <mat-label>Municipio</mat-label>
+        <input type="text" placeholder="Escribe para buscar un municipio..." aria-label="Number" matInput
+          formControlName="municipio" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="sendForm()">
+          @for (option of municipios; track option.id) {
+          <mat-option [value]="option.nombre">{{option.nombre}}</mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="unidad">
+        <mat-label>Unidad</mat-label>
+        <mat-select formControlName="unidad" (selectionChange)="sendForm()">
+          <mat-option value="celsius" selected>ºC</mat-option>
+          <mat-option value="fahrenheit">ºF</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
+  <h1 class="mat-headline-large">El tiempo</h1>
+  <p>Welcome to the home page!</p>
+</section>

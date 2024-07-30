@@ -1,0 +1,43 @@
+:host {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & section {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    max-height: 400px;
+    height: 100%;
+    max-width: 700px;
+    width: 100%;
+
+    & div.header form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+
+      & mat-form-field.municipio {
+        flex: 1;
+        flex-basis: 200px;
+      }
+
+      & mat-form-field.unidad {
+        flex-basis: 130px;
+        width: 100%;
+
+        @media screen and (width < 400px) {
+          flex-basis: 100%;
+        }
+      }
+    }
+
+    & h1 {
+      font-size: 2.5em;
+      font-weight: 200;
+      margin: 0;
+    }
+  }
+}

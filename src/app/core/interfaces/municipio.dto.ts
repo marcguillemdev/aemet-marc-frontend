@@ -1,4 +1,4 @@
 export interface MunicipioDto {
-  id: number;
+  id: string;
   nombre: string;
 }

@@ -13,6 +13,8 @@
     height: 100%;
     max-width: 700px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
 
     & div.header form {
       display: flex;
@@ -34,10 +36,41 @@
       }
     }
 
-    & h1 {
-      font-size: 2.5em;
-      font-weight: 200;
-      margin: 0;
+    & div.body {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin: 20px;
+      flex: 1;
+
+      & h1.municipio {
+        font-size: 1.6em;
+        font-weight: 500;
+        margin: 0;
+      }
+
+      & h2.fecha {
+        margin: 0;
+        margin-top: 10px;
+        font-size: 1.2em;
+        font-weight: 300;
+      }
+
+      & h3.temperatura-media {
+        margin: 0;
+        margin-top: 10px;
+        font-size: 4em;
+        font-weight: 800;
+        color: gray;
+        display: flex;
+        gap: 8px;
+
+        & span.mini {
+          font-size: 0.5em;
+          font-weight: 300;
+          margin-top: 6px;
+        }
+      }
     }
   }
 }

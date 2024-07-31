@@ -6,6 +6,10 @@ export const environment = {
       municipios: {
         base: '/municipios',
         busqueda: '/busqueda',
+      },
+      prediccion: {
+        base: '/prediccion',
+        municipio: '/diaria/municipio',
       }
     }
   }

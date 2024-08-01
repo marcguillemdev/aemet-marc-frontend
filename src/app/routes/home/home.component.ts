@@ -3,8 +3,11 @@ import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { UnidadTemperatura } from '../../core/enums/unidad-temperatura.enum';
@@ -24,7 +27,10 @@ import { PrediccionService } from '../../infrastructure/services/prediccion.serv
     ReactiveFormsModule,
     MatAutocompleteModule,
     DatePipe,
-    TitleCasePipe
+    TitleCasePipe,
+    MatIconModule,
+    MatButtonModule,
+    MatProgressBarModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -35,7 +41,27 @@ export class HomeComponent implements OnInit {
   private readonly municipioService = inject(MunicipioService);
   private readonly prediccionService = inject(PrediccionService);
 
-  public weatherResponse!: PrediccionDto;
+  public weatherResponse: PrediccionDto = {
+    "temperaturaMedia": 27,
+    "probabilidadPrecipitacion": [
+      {
+        "probabilidad": 0,
+        "periodo": "00-06"
+      },
+      {
+        "probabilidad": 0,
+        "periodo": "06-12"
+      },
+      {
+        "probabilidad": 0,
+        "periodo": "12-18"
+      },
+      {
+        "probabilidad": 0,
+        "periodo": "18-24"
+      }
+    ]
+  };
 
   // Tomorrow date
   public readonly tomorrowDate: Date = new Date(
@@ -46,14 +72,26 @@ export class HomeComponent implements OnInit {
 
   public formGroup: FormGroup = new FormGroup({
     municipio: new FormControl({ id: "46235", nombre: "Sueca" }, [Validators.required]),
-    unidad: new FormControl("celsius"),
+    unidad: new FormControl("G_CEL"),
   });
 
   public municipios!: MunicipioDto[];
+  public weatherIcon = 'sunny';
+  public municipioToDisplay = 'Sueca';
 
   ngOnInit(): void {
     this.loadMunicipios();
     this.subscribeToMunicipioChanges();
+  }
+
+  private updateWeatherIcon(prediccion: PrediccionDto): void {
+    const municipioHasRain: boolean = prediccion.probabilidadPrecipitacion
+      .some((probabilidad) => probabilidad.probabilidad > 0);
+    if (municipioHasRain) {
+      this.weatherIcon = 'rainy';
+    } else {
+      this.weatherIcon = 'sunny';
+    }
   }
 
   private subscribeToMunicipioChanges(): void {
@@ -78,16 +116,19 @@ export class HomeComponent implements OnInit {
 
   public sendForm(): void {
     if (this.formGroup.valid) {
+      console.log("Formulario válido", this.formGroup.value);
       const municipio: MunicipioDto = this.formGroup.get('municipio')?.value;
+      this.municipioToDisplay = municipio.nombre;
       const unidadTemperatura: UnidadTemperatura = this.formGroup.get('unidad')?.value;
       this.prediccionService.getPrediccionByMunicipio(
         municipio.id, unidadTemperatura)
         .pipe(
           takeUntilDestroyed(this.destroyRef))
         .subscribe({
-          next: (prediccion) => {
+          next: (prediccion: PrediccionDto) => {
             console.log("Predicción recibida", prediccion);
             this.weatherResponse = prediccion;
+            this.updateWeatherIcon(prediccion);
           },
         })
     }

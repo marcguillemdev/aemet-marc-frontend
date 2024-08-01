@@ -4,71 +4,142 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #a3cef1;
 
   & section {
-    padding: 20px;
     border-radius: 10px;
     background-color: #f9f9f9;
-    max-height: 400px;
-    height: 100%;
-    max-width: 700px;
-    width: 100%;
     display: flex;
     flex-direction: column;
+    max-width: 550px;
+    width: 100%;
 
     & div.header form {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
+      padding: 20px;
+      padding-bottom: 0;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
 
       & mat-form-field.municipio {
         flex: 1;
         flex-basis: 200px;
+
+        & ::ng-deep button[mat-icon-button] {
+          margin-right: 10px;
+        }
       }
 
       & mat-form-field.unidad {
         flex-basis: 130px;
         width: 100%;
 
-        @media screen and (width < 400px) {
+        @media screen and (width < 450px) {
           flex-basis: 100%;
         }
       }
     }
 
-    & div.body {
+    & div.body-wrapper {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      margin: 20px;
-      flex: 1;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
 
-      & h1.municipio {
-        font-size: 1.6em;
-        font-weight: 500;
-        margin: 0;
-      }
-
-      & h2.fecha {
-        margin: 0;
-        margin-top: 10px;
-        font-size: 1.2em;
-        font-weight: 300;
-      }
-
-      & h3.temperatura-media {
-        margin: 0;
-        margin-top: 10px;
-        font-size: 4em;
-        font-weight: 800;
-        color: gray;
+      & div.body-start {
         display: flex;
-        gap: 8px;
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 0 20px;
+        overflow-x: hidden;
 
-        & span.mini {
-          font-size: 0.5em;
+        & h1.municipio {
+          font-size: 1.6em;
+          font-weight: 500;
+          margin: 0;
+        }
+
+        & h2.fecha {
+          margin: 0;
+          margin-top: 10px;
+          font-size: 1.2em;
           font-weight: 300;
-          margin-top: 6px;
+        }
+
+        & h3.temperatura-media {
+          margin: 0;
+          margin-top: 10px;
+          font-size: 4em;
+          font-weight: 800;
+          color: gray;
+          display: flex;
+          gap: 8px;
+
+          & span.mini {
+            font-size: 0.5em;
+            font-weight: 300;
+            margin-top: 6px;
+          }
+        }
+      }
+
+      & div.body-end {
+        margin-right: 20px;
+
+        & mat-icon {
+          $icon-size: 120px;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: $icon-size;
+          width: $icon-size;
+          height: $icon-size;
+          padding: 0;
+
+          &.rainy {
+            color: #4a90e2;
+          }
+
+          &.sunny {
+            color: #f7b733;
+          }
+        }
+      }
+    }
+
+    & div.footer {
+      padding: 20px;
+      padding-top: 0;
+
+      & div.probabilidad-lluvia {
+        display: flex;
+        gap: 15px;
+        margin-top: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+
+        & div.franja {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 10px;
+          border-radius: 10px;
+          background-color: #f0f0f0;
+          flex-flow: column wrap;
+          font-size: 1.2em;
+          font-weight: 300;
+          flex: 1;
+
+          & div.probabilidad {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+          }
         }
       }
     }

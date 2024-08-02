@@ -13,8 +13,9 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { UnidadTemperatura } from '../../core/enums/unidad-temperatura.enum';
 import { MunicipioDto } from '../../core/interfaces/municipio.dto';
 import { PrediccionDto } from '../../core/interfaces/prediccion.dto';
-import { MunicipioService } from '../../infrastructure/services/municipio.service';
-import { PrediccionService } from '../../infrastructure/services/prediccion.service';
+import { municipioPlaceholder, prediccionPlaceholder } from '../../core/placeholder/fake-prediccion.placeholder';
+import { MunicipioService } from '../../core/services/municipio.service';
+import { PrediccionService } from '../../core/services/prediccion.service';
 
 @Component({
   selector: 'app-home',
@@ -41,27 +42,7 @@ export class HomeComponent implements OnInit {
   private readonly municipioService = inject(MunicipioService);
   private readonly prediccionService = inject(PrediccionService);
 
-  public weatherResponse: PrediccionDto = {
-    "temperaturaMedia": 27,
-    "probabilidadPrecipitacion": [
-      {
-        "probabilidad": 0,
-        "periodo": "00-06"
-      },
-      {
-        "probabilidad": 0,
-        "periodo": "06-12"
-      },
-      {
-        "probabilidad": 0,
-        "periodo": "12-18"
-      },
-      {
-        "probabilidad": 0,
-        "periodo": "18-24"
-      }
-    ]
-  };
+  public weatherResponse: PrediccionDto = prediccionPlaceholder;
 
   // Tomorrow date
   public readonly tomorrowDate: Date = new Date(
@@ -77,13 +58,17 @@ export class HomeComponent implements OnInit {
 
   public municipios!: MunicipioDto[];
   public weatherIcon = 'sunny';
-  public municipioToDisplay = 'Sueca';
+  public municipioToDisplay = municipioPlaceholder;
 
   ngOnInit(): void {
     this.loadMunicipios();
     this.subscribeToMunicipioChanges();
   }
 
+  /**
+   * @description Updates the weather icon based on the response.
+   * @param prediccion Prediccion response.
+   */
   private updateWeatherIcon(prediccion: PrediccionDto): void {
     const municipioHasRain: boolean = prediccion.probabilidadPrecipitacion
       .some((probabilidad) => probabilidad.probabilidad > 0);
@@ -94,6 +79,10 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  /**
+   * @description Search for municipios based on the query. 
+   * We apply a debounce time of 400ms to avoid making too many requests.
+   */
   private subscribeToMunicipioChanges(): void {
     this.formGroup.get('municipio')?.valueChanges
       .pipe(
@@ -105,6 +94,10 @@ export class HomeComponent implements OnInit {
       });
   }
 
+  /**
+   * @description Loads municipios based on the query. If no query is provided, it will load all municipios.
+   * @param query Municipio to search. Optional.
+   */
   private loadMunicipios(query?: string): void {
     this.municipioService.getMunicipiosByQuery(query ?? '')
       .pipe(
@@ -114,6 +107,10 @@ export class HomeComponent implements OnInit {
       });
   }
 
+  /**
+   * @description Sends the form and get the weather response. 
+   * Then assign the response to the weatherResponse property and update the weather icon.
+   */
   public sendForm(): void {
     if (this.formGroup.valid) {
       console.log("Formulario válido", this.formGroup.value);
@@ -134,6 +131,11 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  /**
+   * @description Display function for the autocomplete input.
+   * @param municipio Municipio to display.
+   * @returns Municipio name.
+   */
   public displayFn(municipio: MunicipioDto): string {
     return municipio?.nombre ?? '';
   }

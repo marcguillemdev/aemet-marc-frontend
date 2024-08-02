@@ -3,8 +3,8 @@ import { inject, Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from '../../../environments/environment';
-import { UnidadTemperatura } from '../../core/enums/unidad-temperatura.enum';
-import { PrediccionDto } from '../../core/interfaces/prediccion.dto';
+import { UnidadTemperatura } from '../enums/unidad-temperatura.enum';
+import { PrediccionDto } from '../interfaces/prediccion.dto';
 
 @Injectable({
   providedIn: 'root'

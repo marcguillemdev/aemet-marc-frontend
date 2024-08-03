@@ -2,6 +2,12 @@
 # AEMET Angular Application
 Application developed with Angular 18 that shows forecast information through '[aemet-marc-backend](https://github.com/marcguillemdev/aemet-marc-backend)'.
 
+## Preview
+<p float='left'>
+  <img src='https://github.com/marcguillemdev/aemet-marc-frontend/blob/main/public/aemet_1_proc.png?raw=true' width='450px'>
+  <img src='https://github.com/marcguillemdev/aemet-marc-frontend/blob/main/public/aemet_2_proc.png?raw=true' width='450px'>
+</p>
+
 ## 🛠️ Setup development environment
 This project uses **DevContainers** to build all the dependencies and programs needed to run it.
 If you've never heard of them, [here's some more information](https://code.visualstudio.com/docs/devcontainers/containers).

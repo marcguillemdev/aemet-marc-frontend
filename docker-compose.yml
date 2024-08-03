@@ -1,0 +1,12 @@
+name: aemet-marc-frontend-deploy
+services:
+  aemet-marc-spring-service:
+    image: marcguillemdev/aemet-marc-frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - BACKEND_URL=${BACKEND_URL}
+    restart: on-failure
+    ports:
+      - "80:80"

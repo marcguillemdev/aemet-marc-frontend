@@ -4,8 +4,8 @@ Application developed with Angular 18 that shows forecast information through '[
 
 ## Preview
 <p float='left'>
-  <img src='https://github.com/marcguillemdev/aemet-marc-frontend/blob/main/public/aemet_1_proc.png?raw=true' width='450px'>
-  <img src='https://github.com/marcguillemdev/aemet-marc-frontend/blob/main/public/aemet_2_proc.png?raw=true' width='450px'>
+  <img src='https://github.com/marcguillemdev/aemet-marc-frontend/blob/main/public/aemet_1_proc.png?raw=true' width='350px'>
+  <img src='https://github.com/marcguillemdev/aemet-marc-frontend/blob/main/public/aemet_2_proc.png?raw=true' width='350px'>
 </p>
 
 ## 🛠️ Setup development environment

@@ -2,7 +2,7 @@
 # AEMET Angular Application
 Application developed with Angular 18 that shows forecast information through '[aemet-marc-backend](https://github.com/marcguillemdev/aemet-marc-backend)'.
 
-## Preview
+## 👀 Preview
 <p float='left'>
   <img src='https://github.com/marcguillemdev/aemet-marc-frontend/blob/main/public/aemet_1_proc.png?raw=true' width='350px'>
   <img src='https://github.com/marcguillemdev/aemet-marc-frontend/blob/main/public/aemet_2_proc.png?raw=true' width='350px'>
